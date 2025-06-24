@@ -78,7 +78,7 @@
                 </ros>
                 <frame_name>camera_optical_left_link</frame_name>
                 <cameraName>camera_left</cameraName>
-                <imageTopicName>image_raw</imageTopicName>
+                <imageTopicName>zzimage_raw</imageTopicName>
                 <depthImageTopicName>depth/image_raw</depthImageTopicName>
                 <pointCloudTopicName>points</pointCloudTopicName>
             </plugin>

@@ -29,7 +29,7 @@
     <gazebo reference="laser_frame">
         <material>Gazebo/Grey</material>
 
-        <sensor name="base_scan" type="ray">
+        <sensor name="base_scan" type="z">
             <pose> 0 0 0 0 0 0 </pose>
             <visualize>false</visualize>
             <update_rate>10</update_rate>

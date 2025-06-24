@@ -1,88 +1,145 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+  <!-- ========== FRONT CAMERA ========== -->
+  <joint name="camera_joint_front" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_frame_front"/>
+    <origin xyz="0.3 0 0.5" rpy="0 0 0"/>  <!-- Adjust position as needed -->
+  </joint>
 
-    <joint name="camera_joint_front" type="fixed">
-        <parent link="base_link"/>
-        <child link="camera_frame_front"/>
-        <origin xyz="0 0 1.3" rpy="0 0 0"/>
-    </joint>
+  <link name="camera_frame_front"/>
 
-    <link name="camera_frame_front">
-        <!-- <visual>
-            <geometry>
-                <cylinder radius="0.05" length="0.06"/>
-            </geometry>
-            <material name="blue"/>
-        </visual>
-        <collision>
-            <geometry>
-                <cylinder radius="0.05" length="0.06"/>
-            </geometry>
-        </collision>
-        <xacro:inertial_cylinder mass="0.1" length="0.06" radius="0.05">
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-        </xacro:inertial_cylinder> -->
-    </link>
+  <joint name="camera_optical_front_joint" type="fixed">
+    <parent link="camera_frame_front"/>
+    <child link="camera_optical_front_link"/>
+    <origin xyz="0 0 0" rpy="-1.5707 0 -1.5707"/>  <!-- Rotate to optical frame -->
+  </joint>
 
+  <link name="camera_optical_front_link"/>
 
+  <gazebo reference="camera_frame_front">
+    <sensor name="camera_front" type="depth">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>10</update_rate>
+      <camera>
+        <horizontal_fov>1.089</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.2</near>
+          <far>8.0</far>
+        </clip>
+      </camera>
+      <plugin name="camera_front_plugin" filename="libgazebo_ros_camera.so">
+        <ros>
+          <namespace>camera_front</namespace>
+        </ros>
+        <frame_name>camera_optical_front_link</frame_name>
+        <camera_name>camera_front</camera_name>
+        <image_topic_name>image_raw</image_topic_name>
+        <depth_image_topic_name>depth/image_raw</depth_image_topic_name>
+        <point_cloud_topic_name>points</point_cloud_topic_name>
+      </plugin>
+    </sensor>
+  </gazebo>
 
+  <!-- ========== LEFT CAMERA ========== -->
+  <joint name="camera_joint_left" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_frame_left"/>
+    <origin xyz="0.2 -0.3 0.5" rpy="0 0 1.5707"/>  <!-- Left side, 90° yaw -->
+  </joint>
 
+  <link name="camera_frame_left"/>
 
+  <joint name="camera_optical_left_joint" type="fixed">
+    <parent link="camera_frame_left"/>
+    <child link="camera_optical_left_link"/>
+    <origin xyz="0 0 0" rpy="-1.5707 0 -1.5707"/>
+  </joint>
 
+  <link name="camera_optical_left_link"/>
 
-    <joint name="camera_optical_front_joint" type="fixed">
-        <parent link="camera_frame_front"/>
-        <child link="camera_optical_front_link"/>
-        <origin xyz="0.12 0 0" rpy="-1.5707 0 -1.5707"/>
-    </joint>
+  <gazebo reference="camera_frame_left">
+    <sensor name="camera_left" type="depth">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>10</update_rate>
+      <camera>
+        <horizontal_fov>1.089</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.2</near>
+          <far>8.0</far>
+        </clip>
+      </camera>
+      <plugin name="camera_left_plugin" filename="libgazebo_ros_camera.so">
+        <ros>
+          <namespace>camera_left</namespace>
+        </ros>
+        <frame_name>camera_optical_left_link</frame_name>
+        <camera_name>camera_left</camera_name>
+        <image_topic_name>image_raw</image_topic_name>
+        <depth_image_topic_name>depth/image_raw</depth_image_topic_name>
+        <point_cloud_topic_name>points</point_cloud_topic_name>
+      </plugin>
+    </sensor>
+  </gazebo>
 
-    <link name="camera_optical_front_link">
-        <visual>
-            <geometry>
-                <box size="0.4 0.03 0.02"/>
-            </geometry>
-            <material name="blue"/>
-        </visual>
-        <collision>
-            <geometry>
-                <box size="0.4 0.03 0.02"/>
-            </geometry>
-        </collision>
-    </link>
+  <!-- ========== RIGHT CAMERA ========== -->
+  <joint name="camera_joint_right" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_frame_right"/>
+    <origin xyz="0.2 0.3 0.5" rpy="0 0 -1.5707"/>  <!-- Right side, -90° yaw -->
+  </joint>
 
+  <link name="camera_frame_right"/>
 
-    <gazebo reference="camera_frame_front">
-        <material>Gazebo/Blue</material>
+  <joint name="camera_optical_right_joint" type="fixed">
+    <parent link="camera_frame_right"/>
+    <child link="camera_optical_right_link"/>
+    <origin xyz="0 0 0" rpy="-1.5707 0 -1.5707"/>
+  </joint>
 
-        <sensor name="camera_front" type="depth">
-            <pose>0.064 -0.065 0.094  0 0 0 </pose>
-            <visualize>true</visualize>
-            <update_rate>10</update_rate>
-            <camera>
-                <horizontal_fov>1.089</horizontal_fov>
-                <image>
-                  <width>640</width>
-                  <height>480</height>
-                  <format>B8G8R8</format>
-                </image>
-                <clip>
-                  <near>0.2</near>  <!-- Was 0.05, try 0.2 or 0.3 -->
-                  <far>8.0</far>
-                </clip>
-            </camera>
+  <link name="camera_optical_right_link"/>
 
-            <plugin name="camera_front_controller" filename="libgazebo_ros_camera.so">
-                <ros>
-                    <namespace>camera_front</namespace>
-                </ros>
-                <frame_name>camera_optical_front_link</frame_name>
-                <cameraName>camera_front</cameraName>
-                <imageTopicName>image_raw</imageTopicName>
-                <depthImageTopicName>depth/image_raw</depthImageTopicName>
-                <pointCloudTopicName>points</pointCloudTopicName>
-            </plugin>
-        </sensor>
-    </gazebo>
+  <gazebo reference="camera_frame_right">
+    <sensor name="camera_right" type="depth">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>10</update_rate>
+      <camera>
+        <horizontal_fov>1.089</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.2</near>
+          <far>8.0</far>
+        </clip>
+      </camera>
+      <plugin name="camera_right_plugin" filename="libgazebo_ros_camera.so">
+        <ros>
+          <namespace>camera_right</namespace>
+        </ros>
+        <frame_name>camera_optical_right_link</frame_name>
+        <camera_name>camera_right</camera_name>
+        <image_topic_name>image_raw</image_topic_name>
+        <depth_image_topic_name>depth/image_raw</depth_image_topic_name>
+        <point_cloud_topic_name>points</point_cloud_topic_name>
+      </plugin>
+    </sensor>
+  </gazebo>
 
 </robot>

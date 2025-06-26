@@ -14,6 +14,8 @@ find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(message_filters REQUIRED)
 find_package(tf2_ros REQUIRED)
+find_package(tf2_sensor_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
 
 # Modern PCL finding approach for ROS 2
 find_package(PCL REQUIRED COMPONENTS common io)
@@ -45,6 +47,8 @@ ament_target_dependencies(point_cloud_merger
   message_filters
   tf2_ros
   pcl_conversions
+  tf2_sensor_msgs
+  visualization_msgs
 )
 
 # Install targets

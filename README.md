@@ -17,6 +17,7 @@ sudo apt install -y ros-humble-navigation2
 sudo apt install -y ros-humble-nav2-bringup
 sudo apt install -y ros-humble-twist-mux ros-humble-nav2*     
 sudo apt install -y ros-humble-gps-tools
+sudo apt install libpcl-dev pcl-tools
 ```
 
 - git clone (TO ADD)

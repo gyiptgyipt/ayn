@@ -41,8 +41,8 @@
         </ros>
         <frame_name>camera_optical_front_link</frame_name>
         <camera_name>camera_front</camera_name>
-        <image_topic_name>image_raw</image_topic_name>
-        <depth_image_topic_name>depth/image_raw</depth_image_topic_name>
+        <!-- <image_topic_name>image_raw</image_topic_name>
+        <depth_image_topic_name>depth/image_raw</depth_image_topic_name> -->
         <point_cloud_topic_name>points</point_cloud_topic_name>
       </plugin>
     </sensor>
@@ -88,8 +88,8 @@
         </ros>
         <frame_name>camera_optical_left_link</frame_name>
         <camera_name>camera_left</camera_name>
-        <image_topic_name>image_raw</image_topic_name>
-        <depth_image_topic_name>depth/image_raw</depth_image_topic_name>
+        <!-- <image_topic_name>image_raw</image_topic_name>
+        <depth_image_topic_name>depth/image_raw</depth_image_topic_name> -->
         <point_cloud_topic_name>points</point_cloud_topic_name>
       </plugin>
     </sensor>
@@ -135,8 +135,8 @@
         </ros>
         <frame_name>camera_optical_right_link</frame_name>
         <camera_name>camera_right</camera_name>
-        <image_topic_name>image_raw</image_topic_name>
-        <depth_image_topic_name>depth/image_raw</depth_image_topic_name>
+        <!-- <image_topic_name>image_raw</image_topic_name>
+        <depth_image_topic_name>depth/image_raw</depth_image_topic_name> -->
         <point_cloud_topic_name>points</point_cloud_topic_name>
       </plugin>
     </sensor>

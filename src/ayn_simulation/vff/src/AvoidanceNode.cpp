@@ -37,7 +37,7 @@ using namespace std::chrono_literals;
     vff_debug_pub_ = create_publisher<visualization_msgs::msg::MarkerArray>("vff_debug", 100);
 
     scan_sub_ = create_subscription<sensor_msgs::msg::LaserScan>(
-    "input_scan", rclcpp::SensorDataQoS(), std::bind(&AvoidanceNode::scan_callback, this, _1));
+    "simulated_scan", rclcpp::SensorDataQoS(), std::bind(&AvoidanceNode::scan_callback, this, _1));
 
     timer_ = create_wall_timer(50ms, std::bind(&AvoidanceNode::control_cycle, this));
     //timer_ = create_wall_timer(50ms, std::bind(&AvoidanceNode::my_control_cycle, this));

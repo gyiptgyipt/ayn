@@ -38,9 +38,10 @@ public:
 
         pub_scan_ = this->create_publisher<sensor_msgs::msg::LaserScan>("simulated_scan", 10);
 
-        timer_ = this->create_wall_timer(
-            std::chrono::milliseconds(100),
-            std::bind(&CameraToLidarNode::publish_scan, this));
+        // timer_ = this->create_wall_timer(
+        //     std::chrono::milliseconds(100),
+        //     std::bind(&CameraToLidarNode::publish_scan, this));
+        
     }
 
 private:
@@ -78,8 +79,8 @@ private:
         sensor_msgs::msg::PointCloud2 cloud_transformed;
         try
         {
-            // Transform pointcloud to base_link frame
-            cloud_transformed = tf_buffer_->transform(*msg, "base_link", tf2::durationFromSec(0.1));
+            // Transform pointcloud to camera_frame frame
+            cloud_transformed = tf_buffer_->transform(*msg, "camera_frame", tf2::durationFromSec(0.1));
         }
         catch (tf2::TransformException &ex)
         {
@@ -110,6 +111,7 @@ private:
                 }
             }
         }
+        publish_scan();
     }
 
     void publish_scan()
@@ -142,7 +144,7 @@ private:
 
         sensor_msgs::msg::LaserScan scan_msg;
         scan_msg.header.stamp = this->now();
-        scan_msg.header.frame_id = "base_link";
+        scan_msg.header.frame_id = "camera_frame";
         scan_msg.angle_min = angle_min;
         scan_msg.angle_max = angle_max;
         scan_msg.angle_increment = angle_increment;
